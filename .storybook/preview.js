@@ -8,7 +8,7 @@ import theme from "./theme";
 let results;
 
 try {
-  results = "../../../.jest-test-results.json";
+  results = "../../../reports/test-report.json";
 } catch (error) {
   console.log(".jest-test-results.json does not exist, skipping.");
 }
