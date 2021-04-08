@@ -10,7 +10,7 @@ let results;
 try {
   results = "../../../reports/test-report.json";
 } catch (error) {
-  console.log(".jest-test-results.json does not exist, skipping.");
+  console.log("reports/test-report.json does not exist, skipping.");
 }
 
 export const parameters = {
