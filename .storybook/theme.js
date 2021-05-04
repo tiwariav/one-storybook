@@ -1,6 +1,7 @@
 import { create } from "@storybook/theming/create";
 
 export default create({
+  title: "One Storybook",
   base: "light",
 
   // Typography
