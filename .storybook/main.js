@@ -1,26 +1,45 @@
+const glob = require("glob");
+const { findWorkspaceRoot } = require("wo-library/utils/path")
 const css_regex = "/\\.css$/";
 const file_regex =
   "/.(svg|ico|jpg|jpeg|png|apng|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(?.*)?$/";
 
+function getStoriesList() {
+  const fileList = glob.sync("**/!(.yarn|node_modules|build|reports)/**/*.stories.@(js|jsx|ts|tsx)",
+    { cwd: findWorkspaceRoot() }
+  );
+  return fileList.map(item => `../../../${item}`)
+}
+
 module.exports = {
-  stories: [
-    "../../../**/*.stories.mdx",
-    "../../../**/*.stories.@(js|jsx|ts|tsx)",
-  ],
+  stories: async (list) => {
+    // https://github.com/storybookjs/storybook/issues/14342
+    const storiesList = getStoriesList();
+    return [...list, ...storiesList]
+  },
   addons: [
+    {
+      name: "@storybook/addon-postcss",
+      options: {
+        postcssLoaderOptions: {
+          implementation: require("postcss"),
+        },
+      },
+    },
     "@storybook/addon-docs",
-    "@storybook/addon-controls",
-    "@storybook/addon-actions",
     "@storybook/addon-a11y",
-    "@storybook/addon-links",
+    "@storybook/addon-actions",
     "@storybook/addon-backgrounds",
+    "@storybook/addon-controls",
     "@storybook/addon-events",
     "@storybook/addon-jest",
+    "@storybook/addon-links",
     "@storybook/addon-queryparams",
     "@storybook/addon-storysource",
     "@storybook/addon-toolbars",
     "@storybook/addon-viewport",
   ],
+
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
     // You can change the configuration based on that.
@@ -28,11 +47,11 @@ module.exports = {
 
     // Make whatever fine-grained changes you need
     const cssRule = config.module.rules.find(
-      (rule) => rule.test.toString() === css_regex
+      (rule) => rule.test && rule.test.toString() === css_regex
     );
     config.module.rules = [
       ...config.module.rules.filter(
-        (rule) => rule.test.toString() !== css_regex
+        (rule) => rule.test && rule.test.toString() !== css_regex
       ),
       {
         ...cssRule,
