@@ -5,10 +5,20 @@ const file_regex =
   "/.(svg|ico|jpg|jpeg|png|apng|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(?.*)?$/";
 
 function getStoriesList() {
-  const fileList = glob.sync(
-    "**/!(.yarn|node_modules|build|reports|public|dist)/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-    { cwd: findWorkspaceRoot() }
-  );
+  let fileList;
+  if (process.env.CI) {
+    // ignore submodules in ci
+    fileList = glob.sync(
+      "**/@(webapps|shared)/!(node_modules|build|reports|public|dist)/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      { cwd: findWorkspaceRoot() }
+    );
+  } else {
+    // include submodules in local
+    fileList = glob.sync(
+      "**/!(.yarn|node_modules|build|reports|public|dist)/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      { cwd: findWorkspaceRoot() }
+    );
+  }
   return fileList.map((item) => `../../../${item}`);
 }
 
