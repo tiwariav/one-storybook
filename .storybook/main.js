@@ -1,22 +1,19 @@
 const glob = require("glob");
-const { findWorkspaceRoot } = require("wo-library/utils/path")
+const { findWorkspaceRoot } = require("ye-ui/lib/workspaces");
 const css_regex = "/\\.css$/";
 const file_regex =
   "/.(svg|ico|jpg|jpeg|png|apng|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(?.*)?$/";
 
 function getStoriesList() {
-  const fileList = glob.sync("**/!(.yarn|node_modules|build|reports)/**/*.stories.@(js|jsx|ts|tsx)",
+  const fileList = glob.sync(
+    "**/!(.yarn|node_modules|build|reports|public|dist)/**/*.stories.@(js|jsx|ts|tsx|mdx)",
     { cwd: findWorkspaceRoot() }
   );
-  return fileList.map(item => `../../../${item}`)
+  return fileList.map((item) => `../../../${item}`);
 }
 
 module.exports = {
-  stories: async (list) => {
-    // https://github.com/storybookjs/storybook/issues/14342
-    const storiesList = getStoriesList();
-    return [...list, ...storiesList]
-  },
+  stories: getStoriesList(),
   addons: [
     {
       name: "@storybook/addon-postcss",
@@ -97,6 +94,10 @@ module.exports = {
     //   test: /\.svg$/,
     //   use: ["@svgr/webpack", "url-loader"],
     // });
+    config.node = {
+      __filename: true,
+      __dirname: true,
+    };
 
     return config;
   },

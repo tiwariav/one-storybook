@@ -1,5 +1,5 @@
 {
-  "name": "@earlyapp-web/one-storybook",
+  "name": "one-storybook",
   "version": "0.1.0",
   "description": "One storybook for the monorepo",
   "keywords": [
@@ -28,11 +28,12 @@
     "@storybook/addon-storysource": "^6.2.9",
     "@storybook/addon-toolbars": "^6.2.9",
     "@storybook/addon-viewport": "^6.2.9",
-    "@storybook/node-logger": "^6.2.9",
     "@storybook/react": "^6.2.9",
     "@storybook/theming": "^6.2.9",
-    "glob": "^7.1.6",
-    "postcss": "^8.2.13",
+    "@testing-library/react": "^11.2.6",
+    "chromatic": "^5.8.0",
+    "glob": "^7.1.7",
+    "postcss": "^8.2.14",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "wo-library": "workspace:*",
