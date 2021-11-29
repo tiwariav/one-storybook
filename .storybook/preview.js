@@ -1,8 +1,8 @@
 import { withTests } from "@storybook/addon-jest";
 import { addDecorator } from "@storybook/react";
 import React from "react";
-import ThemeProvider from "ye-ui/components/utilities/ThemeProvider";
-import themes from "ye-ui/themes";
+import ThemeProvider from "wo-library/providers";
+import defaultThemeStyleOptions from "ye-ui/themes";
 import theme from "./theme";
 
 let results;
@@ -48,9 +48,11 @@ export const globalTypes = {
 };
 
 const withThemeProvider = (Story, context) => {
-  const theme = context.globals.theme;
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider
+      themeOptions={defaultThemeStyleOptions}
+      activeThemeClassName={context.globals.theme}
+    >
       <Story {...context} />
     </ThemeProvider>
   );
