@@ -2,7 +2,7 @@ import { withTests } from "@storybook/addon-jest";
 import { addDecorator } from "@storybook/react";
 import React from "react";
 import ThemeProvider from "wo-library/providers";
-import defaultThemeStyleOptions from "ye-ui/themes";
+import defaultThemeStyleOptions from "ye-ui/styles/themes";
 import theme from "./theme";
 
 let results;
