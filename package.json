@@ -1,6 +1,10 @@
 {
   "name": "one-storybook",
   "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
   "description": "One storybook for the monorepo",
   "keywords": [
     "components",
@@ -14,26 +18,26 @@
   },
   "dependencies": {
     "@mdx-js/react": "^1.6.22",
-    "@storybook/addon-a11y": "^6.3.12",
-    "@storybook/addon-actions": "^6.3.12",
-    "@storybook/addon-backgrounds": "^6.3.12",
-    "@storybook/addon-controls": "^6.3.12",
-    "@storybook/addon-docs": "^6.3.12",
+    "@storybook/addon-a11y": "^6.4.8",
+    "@storybook/addon-actions": "^6.4.8",
+    "@storybook/addon-backgrounds": "^6.4.8",
+    "@storybook/addon-controls": "^6.4.8",
+    "@storybook/addon-docs": "^6.4.8",
     "@storybook/addon-events": "^6.2.9",
-    "@storybook/addon-jest": "^6.3.12",
-    "@storybook/addon-links": "^6.3.12",
+    "@storybook/addon-jest": "^6.4.8",
+    "@storybook/addon-links": "^6.4.8",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addon-queryparams": "^6.2.9",
-    "@storybook/addon-storyshots": "^6.3.12",
-    "@storybook/addon-storysource": "^6.3.12",
-    "@storybook/addon-toolbars": "^6.3.12",
-    "@storybook/addon-viewport": "^6.3.12",
-    "@storybook/react": "^6.3.12",
-    "@storybook/theming": "^6.3.12",
+    "@storybook/addon-storyshots": "^6.4.8",
+    "@storybook/addon-storysource": "^6.4.8",
+    "@storybook/addon-toolbars": "^6.4.8",
+    "@storybook/addon-viewport": "^6.4.8",
+    "@storybook/react": "^6.4.8",
+    "@storybook/theming": "^6.4.8",
     "@testing-library/react": "^12.1.2",
-    "chromatic": "^6.0.5",
+    "chromatic": "^6.1.0",
     "glob": "^7.2.0",
-    "postcss": "^8.3.11",
+    "postcss": "^8.4.4",
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.7.0",
     "react": "^17.0.2",
@@ -42,6 +46,6 @@
     "ye-ui": "workspace:*"
   },
   "peerDependencies": {
-    "jest": "^27.3.1"
+    "jest": "^27.4.3"
   }
 }
