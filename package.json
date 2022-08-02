@@ -35,7 +35,7 @@
     "@storybook/react": "^6.5.9",
     "@storybook/theming": "^6.5.9",
     "@testing-library/react": "^13.3.0",
-    "chromatic": "^6.7.1",
+    "chromatic": "^6.7.2",
     "glob": "^8.0.3",
     "postcss": "^8.4.14",
     "postcss-import": "^14.1.0",
