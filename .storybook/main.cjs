@@ -1,10 +1,11 @@
 const glob = require("glob");
-const { findWorkspaceRoot } = require("ye-ui/lib/workspaces");
+const { workspaces } = require("ye-ui/lib/cjs");
+const { findWorkspaceRoot } = workspaces;
 const css_regex = "/\\.css$/";
 const file_regex =
   "/.(svg|ico|jpg|jpeg|png|apng|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(?.*)?$/";
 
-function getStoriesList() {
+async function getStoriesList() {
   let fileList;
   if (process.env.CI) {
     // ignore submodules in ci
@@ -23,7 +24,6 @@ function getStoriesList() {
 }
 
 module.exports = {
-  stories: getStoriesList(),
   addons: [
     {
       name: "@storybook/addon-postcss",
@@ -34,18 +34,35 @@ module.exports = {
       },
     },
     "@storybook/addon-docs",
-    "@storybook/addon-a11y",
-    "@storybook/addon-actions",
-    "@storybook/addon-backgrounds",
-    "@storybook/addon-controls",
-    "@storybook/addon-events",
-    "@storybook/addon-jest",
-    "@storybook/addon-links",
-    "@storybook/addon-queryparams",
-    "@storybook/addon-storysource",
+    // "@storybook/addon-a11y",
+    // "@storybook/addon-actions",
+    // "@storybook/addon-backgrounds",
+    // "@storybook/addon-controls",
+    // // "@storybook/addon-events",
+    // "@storybook/addon-jest",
+    // "@storybook/addon-links",
+    // // "@storybook/addon-queryparams",
+    // "@storybook/addon-storysource",
     "@storybook/addon-toolbars",
-    "@storybook/addon-viewport",
+    // "@storybook/addon-viewport",
   ],
+  core: {
+    builder: {
+      name: "webpack5",
+      options: {
+        lazyCompilation: true,
+        fsCache: true,
+      },
+    },
+    disableTelemetry: true, // 👈 Disables telemetry
+  },
+  features: {
+    // babelModeV7: true,
+    // storyStoreV7: true,
+  },
+  framework: "@storybook/react",
+  // stories: [],
+  stories: getStoriesList,
 
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -108,7 +125,16 @@ module.exports = {
       __filename: true,
       __dirname: true,
     };
-
+    for (const rule of config.module.rules) {
+      if (String(rule.test).includes("js")) {
+        if (rule.resolve) {
+          // disables compulsory file extension in import for modules
+          rule.resolve.fullySpecified = false;
+        } else {
+          rule.resolve = { fullySpecified: false };
+        }
+      }
+    }
     return config;
   },
 };

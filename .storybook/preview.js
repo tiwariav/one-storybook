@@ -1,7 +1,8 @@
 import { withTests } from "@storybook/addon-jest";
 import { addDecorator } from "@storybook/react";
 import React from "react";
-import ThemeProvider from "wo-library/providers";
+import { ThemeContext } from "wo-library/contexts";
+import "ye-ui/styles/css/base";
 import defaultThemeStyleOptions from "ye-ui/styles/themes";
 import theme from "./theme";
 
@@ -27,7 +28,7 @@ export const globalTypes = {
     toolbar: {
       icon: "circlehollow",
       // array of plain string values or MenuItem shape (see below)
-      items: ["default", ...Object.keys(themes)],
+      items: ["default", ...Object.keys(defaultThemeStyleOptions)],
     },
   },
   locale: {
@@ -49,12 +50,12 @@ export const globalTypes = {
 
 const withThemeProvider = (Story, context) => {
   return (
-    <ThemeProvider
-      themeOptions={defaultThemeStyleOptions}
-      activeThemeClassName={context.globals.theme}
+    <ThemeContext.ThemeProvider
+      themeVariants={defaultThemeStyleOptions}
+      activeThemeName={context.globals.theme}
     >
       <Story {...context} />
-    </ThemeProvider>
+    </ThemeContext.ThemeProvider>
   );
 };
 
